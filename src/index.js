@@ -102,6 +102,8 @@ Schema.prototype = {
     keys.forEach(z => {
       arr = this.rules[z];
       value = source[z];
+      // 在值为空字符串，但不是 required 时，不进行任何校验
+      if (value === '' && !attr.find(_it => _it.required)) return
       arr.forEach(r => {
         let rule = r;
         if (typeof rule.transform === 'function') {

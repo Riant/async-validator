@@ -1,0 +1,86 @@
+{
+  "name": "async-validator",
+  "version": "3.0.2",
+  "description": "validate form asynchronous",
+  "keywords": [
+    "validator",
+    "validate",
+    "async"
+  ],
+  "homepage": "http://github.com/yiminghe/async-validator",
+  "author": "yiminghe@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:yiminghe/async-validator.git"
+  },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg",
+        {
+          "exclude": [
+            "__tests__/**/*"
+          ]
+        }
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "pika-plugin-build-web-babel"
+      ]
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/*"
+    ]
+  },
+  "bugs": {
+    "url": "http://github.com/yiminghe/async-validator/issues"
+  },
+  "license": "MIT",
+  "config": {
+    "port": 8010
+  },
+  "scripts": {
+    "lint-staged": "lint-staged",
+    "prettier": "prettier --write \"{src,__tests__}/**/*.{js,tsx}\"",
+    "pub": "np --no-publish --no-release-draft && npm run build && npm publish pkg",
+    "build": "pack build",
+    "test": "jest",
+    "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "version": "npm run build"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
+    "@pika/pack": "^0.5.0",
+    "@pika/plugin-build-node": "^0.6.0",
+    "@pika/plugin-standard-pkg": "^0.6.0",
+    "@pika/types": "^0.6.0",
+    "babel-jest": "^24.8.0",
+    "coveralls": "^2.13.1",
+    "jest": "^24.8.0",
+    "lint-staged": "^7.2.0",
+    "np": "^5.0.3",
+    "pika-plugin-build-web-babel": "^0.6.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.11.1"
+  },
+  "lint-staged": {
+    "*.{tsx,js,jsx,ts}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "pre-commit": [
+    "lint-staged"
+  ],
+  "files": [
+    "pkg/dist-*/",
+    "pkg/bin/"
+  ],
+  "esnext": "pkg/dist-src/index.js",
+  "main": "pkg/dist-node/index.js",
+  "module": "pkg/dist-web/index.js"
+}
